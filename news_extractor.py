@@ -108,10 +108,6 @@ class Analysis:
 
         data = list(zip(headings, date, urls))
         df = pd.DataFrame(data=data, columns=['heading', 'date', 'url'])
-        df.to_csv('{}.csv'.format(self.site), index=None)
+        df.to_csv('{}.csv'.format(str.split(self.site, ',')[0]), index=None)
         return df
 
-
-a = Analysis('hemant soren', 'prabhatkhabar.com', '1/1/2020', '1/31/2020')
-df = a.make_data()
-print(df)
