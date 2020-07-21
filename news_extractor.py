@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
+from tqdm import tqdm, tqdm_notebook
 
 
 class Analysis:
@@ -91,8 +92,8 @@ class Analysis:
         date = []
         urls = self.href_extactor()
 
-        for u in urls:
-            r = requests.get(u)
+        for i in tqdm(range(len(urls)), desc='Progress'):
+            r = requests.get(urls[i])
             if r.status_code == 200:
                 soup = BeautifulSoup(r.content, 'html.parser')
                 try:
@@ -107,8 +108,10 @@ class Analysis:
 
         data = list(zip(headings, date, urls))
         df = pd.DataFrame(data=data, columns=['heading', 'date', 'url'])
-        df.to_csv(index=None, name='{}_{}_{}.csv'.format(self.site, self.b_date,self.e_date))
+        df.to_csv('{}.csv'.format(self.site), index=None)
+        return df
 
 
 a = Analysis('hemant soren', 'prabhatkhabar.com', '1/1/2020', '1/31/2020')
-a.make_data()
+df = a.make_data()
+print(df)
