@@ -1,11 +1,9 @@
 # news_extractor
-This program extracts headlines from a specific news url within a given date range. To initialise the class Analysis, create a new instance of the class supplying 4 args namely, **term**, **url to website**, **date of begin**, **date of end**
+This program extracts headlines, date and url for given search term within a date range.
 
-### example
-a = Analysis(term='Donald trump', site='prabhatkhabar.com', b_date='1/1/2020', e_date='1/31/2020')
+To run the program, 'python main.py' and supply the nessary arguments. The program after completing running will return a dataframe having the necessary data.
 
-Once the class has been initialised call the make_data object from the class to download the data and return a dataframe as a csv
-
-### example
-a.make_file()
+### To do
+1. add data validation for the class arguments being supplied by the user
+2. create a GUI interface using QT
 
