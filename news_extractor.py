@@ -52,9 +52,10 @@ class Analysis:
         result = 1
         driver = self.open_driver()
         pages = self.result_length()
-        print(pages)
+        print("Search result pages found: {}".format(pages))
+        print("Downloading data from search results...")
         old_url = self.url
-        print(old_url)
+        # print(old_url)
         if pages <= 0:
             driver.get(old_url)
             sleep(5)
@@ -68,7 +69,7 @@ class Analysis:
             for i in range(pages):
                 append_str = '&start='+str(result)
                 new_url = old_url+append_str
-                print('Downloading from: '+new_url)
+                # print('Downloading from: '+new_url)
                 driver.get(new_url)
                 sleep(5)
                 anchors = driver.find_elements_by_tag_name('a')
@@ -92,6 +93,7 @@ class Analysis:
         date = []
         urls = self.href_extactor()
 
+        print('Making data file')
         for i in tqdm(range(len(urls)), desc='Progress'):
             r = requests.get(urls[i])
             if r.status_code == 200:
@@ -108,6 +110,7 @@ class Analysis:
 
         data = list(zip(headings, date, urls))
         df = pd.DataFrame(data=data, columns=['heading', 'date', 'url'])
-        df.to_csv('{}.csv'.format(str.split(self.site, ',')[0]), index=None)
+        df_name = (str.split(self.site, ',')[0])
+        df.to_csv('{}.csv'.format(df_name), index=None)
         return df
 
