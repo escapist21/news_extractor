@@ -23,7 +23,7 @@ class Analysis:
     def open_driver(self):
         options = Options()
         options.headless = True
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=options)
         driver = self.driver
 
         return driver
